@@ -1,0 +1,80 @@
+﻿@model CSHBlog.Web.Models.ViewModels.HomeViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-5 py-5">
+
+        <div class="col-12 col-lg-7">
+            <h1 class="display-5 fw-bold lh-1 ">
+                專案作品集
+            </h1>
+            <p class="pt-5 m-0">
+                我是陳信豪，我是具設計背景的工程師，對技術與創新的熱情驅使我不斷探索新領域。<br />
+                我專注於學習與理解技術，並以此為基礎構建自己的創意想法，擅長快速開發最小可行產品（MVP），跨越不同領域，發掘技術的新應用場景。<br />
+                我的經驗涵蓋全端網頁開發、電子電路設計、互動遊戲軟體以及聲光展示系統等多元技術領域，能靈活將多樣化技能結合，打造具創意與實用性的解決方案。<br />
+            </p>
+        </div>
+
+        <div class="col-12 col-lg-5">
+            <img src="https://res.cloudinary.com/defs1t5lp/image/upload/v1732003415/fn9sywm3zii5t2amhd5v.jpg" alt="Alternate Text" class="d-block mx-lg-auto img-fluid" width=300 px />
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-8 d-flex">
+            @if (Model != null && Model.Tags.Any())
+            {
+                foreach (var tags in Model.Tags)
+                {
+                    <span class="badge bg-dark me-1">@tags.Name</span>
+                }
+            }
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-8">
+
+            @if (Model != null && Model.BlogPosts.Any())
+            {
+                foreach (var blogPost in Model.BlogPosts)
+                {
+                    //Todo: Add link on div
+                    <div class="mb-5 bg-light box-shadow p-2">
+                        <img src="@blogPost.FeaturedImageUrl" alt="@blogPost.Heading" class="mb-2 d-block img-fluid" />
+                        <h2 class="mb-4">@blogPost.Heading</h2>
+                        <p class="mb-2">
+                            發布時間：@blogPost.PublishDate.ToShortDateString()
+                        </p>
+                        <p class="mb-4">
+                            <div class="d-flex">
+                                @foreach (var tag in blogPost.Tags)
+                                {
+                                    <span class="badge bg-secondary me-1">@tag.Name</span>
+                                }
+                            </div>
+                        </p>
+                        <p class="mb-4">@blogPost.ShortDescription</p>
+                        <div class="d-flex justify-content-end"><a class="btn btn-dark" asp-area="" asp-controller="Blogs" asp-action="Index" asp-route-handle="@blogPost.UrlHandle">繼續閱讀</a></div>
+
+
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</div>
+
+
+
