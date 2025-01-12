@@ -36,7 +36,7 @@ namespace CSHBlog.Web.Repositories
 
         public async Task<IEnumerable<BlogPost>> GetAllAsync()
         {
-            var blogPosts = await _dbContext.BlogPosts.Include(x => x.Tags).ToListAsync();
+            var blogPosts = await _dbContext.BlogPosts.Include(x => x.Tags).OrderBy(x => x.PublishDate).ToListAsync();
             return blogPosts;
         }
 
